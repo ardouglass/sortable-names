@@ -1,0 +1,315 @@
+/*! based on concrete.css v3.0.0 | MIT License | github.com/louismerlin/concrete.css */
+
+:root {
+  --fg: #222;
+  --bg: #f6f6f6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #fff;
+    --bg: #111;
+  }
+}
+
+html {
+  font-size: 1.25rem;
+  box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+  text-decoration-thickness: 0.1rem;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
+}
+
+a {
+  color: var(--fg);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+main section + section {
+  padding: 1rem 0;
+}
+
+body > header,
+body > main,
+body > footer {
+  margin: auto;
+  max-width: 660px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+body > header {
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  font-size: 1.2em;
+}
+
+body > footer {
+  padding-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.17em;
+}
+h4 {
+  font-size: 1em;
+}
+h5 {
+  font-size: 0.83em;
+}
+h6 {
+  font-size: 0.67em;
+}
+
+footer {
+  text-align: center;
+}
+
+ul {
+  list-style: square;
+}
+
+nav {
+  margin: 2rem 0;
+}
+
+nav ul {
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  margin: 0 0.2rem;
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0.4rem;
+}
+
+td:first-child,
+th:first-child {
+  padding-left: 0;
+}
+
+td:last-child,
+th:last-child {
+  padding-right: 0;
+}
+
+th {
+  border-bottom: 0.1rem solid var(--fg);
+  text-align: left;
+}
+
+td {
+  border-bottom: 0.05rem solid var(--fg);
+}
+
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.5rem 0.8rem;
+  border-left: 0.1rem solid var(--fg);
+  overflow-y: hidden;
+}
+
+pre code {
+  white-space: pre;
+  display: block;
+  font-size: 0.8rem;
+}
+
+hr {
+  border: 0.05rem solid var(--fg);
+}
+
+/* a11y theme */
+/* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
+/* @author: ericwbailey */
+
+/*
+ * MARK: Setup
+ */
+@layer vendor-highlight {
+  @media (forced-colors: none),
+    (forced-colors: active) and (prefers-color-scheme: light),
+    (prefers-color-scheme: dark) {
+    :root {
+      --highlight-a11y-code-block-padding: 0.5em;
+    }
+  }
+
+  @media (forced-colors: none) and (prefers-color-scheme: light) {
+    :root {
+      --highlight-a11y-color-background: hsla(0, 0%, 100%, 1);
+      --highlight-a11y-color-text-no-token: hsla(0, 0%, 33%, 1);
+      --highlight-a11y-color-text-comment: hsla(16, 100%, 25%, 1);
+      --highlight-a11y-color-text-blue: hsla(195, 100%, 30%, 1);
+      --highlight-a11y-color-text-green: hsla(120, 100%, 25%, 1);
+      --highlight-a11y-color-text-orange: hsla(33, 100%, 33%, 1);
+      --highlight-a11y-color-text-purple: hsla(282, 100%, 41%, 1);
+      --highlight-a11y-color-text-red: hsla(2, 80%, 47%, 1);
+      --highlight-a11y-color-text-yellow: hsla(43, 74%, 30%, 1);
+    }
+  }
+
+  @media (forced-colors: none) and (prefers-color-scheme: dark) {
+    :root {
+      --highlight-a11y-color-background: hsla(0, 0%, 17%, 1);
+      --highlight-a11y-color-text-no-token: hsla(60, 30%, 96%, 1);
+      --highlight-a11y-color-text-comment: hsla(54, 32%, 75%, 1);
+      --highlight-a11y-color-text-blue: hsla(180, 100%, 44%, 1);
+      --highlight-a11y-color-text-green: hsla(80, 75%, 55%, 1);
+      --highlight-a11y-color-text-purple: hsla(291, 30%, 83%, 1);
+      --highlight-a11y-color-text-red: hsla(17, 100%, 74%, 1);
+      --highlight-a11y-color-text-yellow: hsla(51, 100%, 50%, 1);
+      --highlight-a11y-color-text-orange: hsla(37, 91%, 58%, 1);
+    }
+  }
+
+  @media (forced-colors: none),
+    (forced-colors: active) and (prefers-color-scheme: light),
+    (prefers-color-scheme: dark) {
+    /*
+     * MARK: Theme
+     */
+    /* Comment */
+    :where(.hljs-comment, .hljs-quote) {
+      color: var(--highlight-a11y-color-text-comment);
+    }
+
+    /* Red */
+    :where(
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-regexp,
+        .hljs-deletion
+      ) {
+      color: var(--highlight-a11y-color-text-red);
+    }
+
+    /* Orange */
+    :where(
+        .hljs-number,
+        .hljs-built_in,
+        .hljs-builtin-name,
+        .hljs-literal,
+        .hljs-type,
+        .hljs-params,
+        .hljs-meta,
+        .hljs-link
+      ) {
+      color: var(--highlight-a11y-color-text-orange);
+    }
+
+    /* Yellow */
+    :where(.hljs-attribute) {
+      color: var(--highlight-a11y-color-text-yellow);
+    }
+
+    /* Green */
+    :where(.hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition) {
+      color: var(--highlight-a11y-color-text-green);
+    }
+
+    /* Blue */
+    :where(.hljs-title, .hljs-section) {
+      color: var(--highlight-a11y-color-text-blue);
+    }
+
+    /* Purple */
+    :where(.hljs-keyword, .hljs-selector-tag) {
+      color: var(--highlight-a11y-color-text-purple);
+    }
+
+    :where(.hljs) {
+      display: block;
+      overflow-x: auto;
+      background: var(--highlight-a11y-color-background);
+      color: var(--highlight-a11y-color-text-no-token);
+      padding: var(--highlight-a11y-code-block-padding);
+    }
+
+    :where(.hljs-emphasis) {
+      font-style: italic;
+    }
+
+    :where(.hljs-strong) {
+      font-weight: bold;
+    }
+  }
+
+  /*
+   * MARK: Forced color mode support
+   */
+  @media (forced-colors: active) {
+    :where(.hljs-keyword, .hljs-selector-tag) {
+      font-weight: bold;
+    }
+  }
+
+  @media (forced-colors: active) and (prefers-color-scheme: light) {
+    :root {
+      --highlight-a11y-color-background: Canvas;
+      --highlight-a11y-color-text-no-token: CanvasText;
+      --highlight-a11y-color-text-comment: GrayText;
+      --highlight-a11y-color-text-blue: LinkText;
+      --highlight-a11y-color-text-gray: LinkText;
+      --highlight-a11y-color-text-green: CanvasText;
+      --highlight-a11y-color-text-orange: CanvasText;
+      --highlight-a11y-color-text-purple: CanvasText;
+      --highlight-a11y-color-text-red: CanvasText;
+      --highlight-a11y-color-text-yellow: GrayText;
+      --highlight-a11y-plugin-color-border: LinkText;
+      --highlight-a11y-plugin-color-background: Canvas;
+    }
+  }
+
+  @media (forced-colors: active) and (prefers-color-scheme: dark) {
+    :root {
+      --highlight-a11y-color-background: Canvas;
+      --highlight-a11y-color-text-no-token: CanvasText;
+      --highlight-a11y-color-text-comment: GrayText;
+      --highlight-a11y-color-text-blue: LinkText;
+      --highlight-a11y-color-text-gray: LinkText;
+      --highlight-a11y-color-text-green: CanvasText;
+      --highlight-a11y-color-text-orange: CanvasText;
+      --highlight-a11y-color-text-purple: CanvasText;
+      --highlight-a11y-color-text-red: CanvasText;
+      --highlight-a11y-color-text-yellow: GrayText;
+    }
+  }
+}

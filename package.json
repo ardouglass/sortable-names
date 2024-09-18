@@ -1,0 +1,56 @@
+{
+  "name": "sortable-names",
+  "version": "1.0.0",
+  "description": "A JS class that formats name strings to semi-intelligently put the last name first, making them sortable by last name.",
+  "keywords": [
+    "author",
+    "book",
+    "format",
+    "name",
+    "sort",
+    "sortable"
+  ],
+  "homepage": "https://github.com/ardouglass/sortable-names#readme",
+  "bugs": "https://github.com/ardouglass/sortable-names/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github:ardouglass/sortable-names"
+  },
+  "license": "MIT",
+  "author": "Andrew Douglass",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/sortable-names.d.ts",
+        "default": "./dist/sortable-names.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run check-types && vite build && npm run emit-declarations",
+    "check-types": "tsc --project tsconfig.json",
+    "dev": "vite",
+    "emit-declarations": "tsc --project tsconfig.types.json",
+    "lint-staged": "lint-staged",
+    "prepare": "husky",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "prettier": "3.3.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.5"
+  }
+}

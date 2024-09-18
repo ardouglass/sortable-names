@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using sortable-names</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="main.ts"></script>
+  </head>
+  <body>
+    <header>
+      <h1><code>sortable-names</code></h1>
+      <p>
+        A JS class that formats name strings to semi-intelligently put the last
+        name first, making them sortable by last name. Opinionated and English
+        specific, but configurable.
+      </p>
+      <nav>
+        <ul>
+          <li>
+            <a href="https://github.com/ardouglass/sortable-names">GitHub</a>
+          </li>
+          <li>|</li>
+          <li>
+            <a href="https://www.npmjs.com/package/sortable-names">npm</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h2>Why?</h2>
+        <p>
+          You might need something like this if you have a list of authors and
+          want to make them sortable by last name. Moving the last part of the
+          name isn't a full solution, because author names may have honorifics
+          or suffixes that break a simple approach like that. A work could be
+          authored by an organization as well, and rearranging the name wouldn't
+          make sense.
+        </p>
+
+        <h3>What <code>sortable-names</code> does by default</h3>
+        <ul>
+          <li>Strips extra whitespace</li>
+          <li>Removes honorifics before names</li>
+          <li>Keeps suffixes like Jr, PhD, IV, etc. at the end of the name</li>
+          <li>
+            Leaves organization names mostly alone, only moving articles to the
+            end of the name
+          </li>
+        </ul>
+
+        <h3>What you can configure</h3>
+        <ul>
+          <li>The articles to move to the end of organization names</li>
+          <li>The words that identify organizations</li>
+          <li>The honorifics to strip from the beginning of names</li>
+          <li>The suffixes to leave at the end of names</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Installing</h2>
+        <p>Add the dependency:</p>
+        <pre><span class="hljs"><code>npm i sortable-names</code></span></pre>
+        <p>Import it and use it somewhere:</p>
+        <pre><span class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SortableNames</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"sortable-names"</span>;
+
+<span class="hljs-keyword">const</span> sortableNames = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SortableNames</span>();
+
+<span class="hljs-keyword">const</span> formattedName =
+  sortableNames.<span class="hljs-title function_">getSortable</span>(<span class="hljs-string">"Dr. Martin Luther King Jr., Ph.D."</span>);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(formattedName);
+<span class="hljs-comment">// "King, Martin Luther, Jr, PhD"</span></code></span></pre>
+      </section>
+
+      <section>
+        <h2>Sort helper</h2>
+        <p>
+          If you have an array of formatted names, sorting them isn't entirely
+          trivial. Things like accented letters and puncuation in names like
+          O'Malley can result in undesirable sorting order. Use the provided
+          helper method to fix this.
+        </p>
+        <pre><span class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SortableNames</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"sortable-names"</span>;
+
+<span class="hljs-keyword">const</span> compare = <span class="hljs-title class_">SortableNames</span>.compare;
+
+<span class="hljs-keyword">const</span> formattedNames = [
+  <span class="hljs-string">"O'Malley, Virgil"</span>,
+  <span class="hljs-string">"Oliver, John"</span>,
+];
+
+<span class="hljs-comment">// Compares the ' in O'Malley to the l in Oliver</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(formattedNames.<span class="hljs-title function_">toSorted</span>());
+<span class="hljs-comment">// ["O'Malley, Virgil", "Oliver, John"]</span>
+
+<span class="hljs-comment">// Ignores punctuation</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(formattedNames.<span class="hljs-title function_">toSorted</span>(compare));
+<span class="hljs-comment">// ["Oliver, John", "O'Malley, Virgil"]</span></code></span></pre>
+      </section>
+
+      <section>
+        <h2>Examples using defaults</h2>
+        <p>These examples are sorted using the sort helper.</p>
+        <name-table></name-table>
+      </section>
+
+      <section>
+        <h2>Configuring options</h2>
+        <p>
+          If you are unhappy with the defaults or want to extend them, you can
+          pass options into the constructor.
+        </p>
+        <pre><span class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SortableNames</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"sortable-names"</span>;
+
+<span class="hljs-comment">/**
+ * To extend an option, the defaults are
+ * available as static properties
+ */</span>
+<span class="hljs-keyword">const</span> extendedOrgWords = [
+  ...<span class="hljs-title class_">SortableNames</span>.<span class="hljs-property">defaultOrgWords</span>,
+  <span class="hljs-string">"Circus(?:es)"</span>,
+];
+
+<span class="hljs-comment">/**
+ * Only support org names in Spanish
+ */</span>
+<span class="hljs-keyword">const</span> replacedArticles = [
+  <span class="hljs-string">"El"</span>,
+  <span class="hljs-string">"Las?"</span>,
+  <span class="hljs-string">"Los?"</span>,
+  <span class="hljs-string">"Una?"</span>,
+];
+
+<span class="hljs-comment">/**
+ * Don't strip any honorifics
+ */</span>
+<span class="hljs-keyword">const</span> noHonorifics = [];
+
+<span class="hljs-comment">/**
+ * Suffixes can also be extended or modified,
+ * for example to support LinkedIn Lunatics like
+ * Horatio Herbert Kitchener, KG, KP, GCB, OM, GCSI, GCMG, GCIE
+ */</span>
+<span class="hljs-keyword">const</span> extendedNameSuffixes = [
+  ...<span class="hljs-title class_">SortableNames</span>.<span class="hljs-property">defaultNameSuffixes</span>,
+  <span class="hljs-string">"KG"</span>,
+  <span class="hljs-string">"KP"</span>,
+  <span class="hljs-string">"GCB"</span>,
+  <span class="hljs-string">"OM"</span>,
+  <span class="hljs-string">"GCSI"</span>,
+  <span class="hljs-string">"GCMG"</span>,
+  <span class="hljs-string">"GCIE"</span>,
+];
+
+<span class="hljs-keyword">const</span> configuredSortableNames = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SortableNames</span>({
+  <span class="hljs-attr">articles</span>: replacedArticles,
+  <span class="hljs-attr">orgWords</span>: extendedOrgWords,
+  <span class="hljs-attr">honorifics</span>: noHonorifics,
+  <span class="hljs-attr">nameSuffixes</span>: extendedNameSuffixes,
+});</code></span></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>Happy sorting!</p>
+    </footer>
+  </body>
+</html>
