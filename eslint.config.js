@@ -4,6 +4,7 @@ import eslintPrettier from "eslint-config-prettier";
 import globals from "globals";
 
 export default eslintTS.config(
+  { ignores: ["dist/"] },
   eslintJS.configs.recommended,
   ...eslintTS.configs.recommended,
   {
