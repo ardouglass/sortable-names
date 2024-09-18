@@ -1,4 +1,4 @@
-name: Runs preflight checks on PRs
+name: Preflight check for PRs
 
 on:
   push:
