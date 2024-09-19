@@ -38,12 +38,14 @@
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "preview": "vite preview",
+    "release": "changelogen --release --publish",
     "test": "vitest"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@eslint/js": "^9.10.0",
+    "changelogen": "^0.5.7",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.9.0",
