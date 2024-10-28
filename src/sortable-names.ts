@@ -361,16 +361,43 @@ class SortableNames {
    * Helper comparator to pass to Array.sort() or Array.toSorted().
    *
    * This comparator will ignore things like accent marks, case, and punctuation.
+   * Ignoring punctuation also ignores spaces, so this should check word by word.
    *
    * @param x - The first element for comparison.
    * @param y - The second element for comparison.
    * @returns A number indicating whether or not the first param is greater than the second param.
    */
-  static compare = new Intl.Collator("en", {
-    numeric: true,
-    sensitivity: "base",
-    ignorePunctuation: true,
-  }).compare;
+  static compare(x: string, y: string) {
+    // Skip if they're the same
+    if (x == y) {
+      return 0;
+    }
+
+    const intlComparator = new Intl.Collator("en", {
+      numeric: true,
+      sensitivity: "base",
+      ignorePunctuation: true,
+    }).compare;
+
+    const xParts = x.split(" ");
+    const yParts = y.split(" ");
+
+    // Maximum index checkable in the bounds of the arrays
+    const maxIndex = Math.min(xParts.length, yParts.length);
+
+    // Compare the first word in the name string that differs
+    for (let i = 0; i < maxIndex; i++) {
+      const xAtIndex = xParts[i] || "";
+      const yAtIndex = yParts[i] || "";
+
+      if (xAtIndex !== yAtIndex) {
+        return intlComparator(xAtIndex, yAtIndex);
+      }
+    }
+
+    // Handle if names are almost the same but one is longer
+    return intlComparator(x, y);
+  }
 }
 
 export { SortableNames };

@@ -236,3 +236,22 @@ describe("SortableNames with configured articles", () => {
     expect(sortableArticlesExtended.getSortable(name)).toBe(nameSorted);
   });
 });
+
+describe("SortableNames.compare helper", () => {
+  const sortable = new SortableNames();
+
+  const similarNames = ["Eric Jerome Dickey", "Philip K. Dick"];
+
+  test("correctly handles names that partially match", () => {
+    const sortableSimilarNames = similarNames.map((name) =>
+      sortable.getSortable(name)
+    );
+
+    const sortedSimilarNames = sortableSimilarNames.sort(SortableNames.compare);
+
+    expect(sortedSimilarNames).toStrictEqual([
+      "Dick, Philip K.",
+      "Dickey, Eric Jerome",
+    ]);
+  });
+});

@@ -21,6 +21,8 @@ class NameTable extends BaseElement {
     "Edward Bulwer-Lytton",
     "U.S. Government Accountability Office",
     "The Environmental Protection Agency",
+    "Philip K. Dick",
+    "Eric Jerome Dickey",
   ];
 
   names: { name: string; nameFormatted: string }[];
